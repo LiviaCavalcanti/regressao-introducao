@@ -10,8 +10,8 @@ output:
 
 ---
 
-```{r}
-suppressWarnings(library(tidyverse))
+```{r warning=F}
+library(tidyverse)
 
 library(tidyverse)
 theme_set(theme_bw())
@@ -26,8 +26,9 @@ library(modelr) # devtools::install_github("hadley/modelr")
 # Os dados
 
 ```{r}
-advertising = read_csv("dados/Advertising.csv") %>% 
+advertising = read_csv(here::here("data/Advertising.csv")) %>% 
   rename(campaign = X1)
+glimpse(advertising)
 advertising %>% 
   select(-campaign) %>% 
   ggpairs(lower = list(continuous = wrap("points", alpha = 0.3)))
@@ -81,21 +82,21 @@ d %>%
 
 ```{r}
 advertising %>% 
-  mutate(TV = log(TV)) %>% 
+  mutate(TV = log2(TV)) %>% 
   ggplot(aes(x = TV)) + 
   geom_point(aes(y = Sales)) + 
-  ggtitle("y ~ log(x)")
+  ggtitle("y ~ log2(x)")
 ```
 
 `log(y) ~ log(x)` faz a relação se parecer muito mais com uma relação linear.
 
 ```{r}
 advertising %>% 
-  mutate(Sales = log(Sales), 
-         TV = log(TV)) %>% 
+  mutate(Sales = log2(Sales), 
+         TV = log2(TV)) %>% 
   ggplot(aes(x = TV)) + 
   geom_point(aes(y = Sales)) + 
-  ggtitle("log(y) ~ log(x)")
+  ggtitle("log2(y) ~ log2(x)")
 ```
 
 ## Usando a relação entre as variáveis transformadas para ajustar um modelo linear

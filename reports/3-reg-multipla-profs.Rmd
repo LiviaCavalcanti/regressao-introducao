@@ -47,6 +47,35 @@ profs %>%
 ```
 
 ```{r}
+pic_model = lm(score ~ pic_outfit, 
+               data = profs)
 
+tidy(pic_model)
+glance(pic_model)
 ```
 
+```{r}
+bty_model = lm(score ~ bty_avg, 
+               data = profs)
+
+tidy(bty_model, 
+     conf.int = T)
+glance(bty_model)
+```
+
+```{r}
+bty_gender_model = lm(score ~ bty_avg + gender, 
+               data = profs)
+
+tidy(bty_gender_model, 
+     conf.int = T)
+glance(bty_gender_model)
+```
+```{r}
+bty_gender_age_model = lm(score ~ bty_avg + gender + age, 
+               data = profs)
+
+tidy(bty_gender_age_model, 
+     conf.int = T)
+glance(bty_gender_age_model)
+```
